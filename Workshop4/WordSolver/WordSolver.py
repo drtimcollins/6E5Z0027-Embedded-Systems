@@ -1,3 +1,5 @@
+## Base Solver class: Should be inherited and the guess() method overridden. newGame() method may, optionally, be overridden too
+##                    and new methods and/or attributes can be added as needed.
 import random
 
 class Solver:
