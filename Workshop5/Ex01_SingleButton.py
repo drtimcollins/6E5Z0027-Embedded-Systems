@@ -10,8 +10,7 @@ class ButtonTextApp:
       self.btn.grid()
 
    def buttonCallback(self):
-      print("Button was pressed")
-      print(self.txt.get())
+      print("Text entered is: " + self.txt.get())
 
 window = tk.Tk()
 app = ButtonTextApp(window)
