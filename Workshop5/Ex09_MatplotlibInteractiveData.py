@@ -10,9 +10,9 @@ class PlotterApp():
       self.window = parentWindow
       self.window.title('Matplotlib and Tkinter Demo 2')
 
-      self.fig = Figure()
-      self.phi = np.linspace(0, 2 * np.pi)
+      self.fig = Figure()                      # Same plot again
       self.ax = self.fig.subplots()
+      self.phi = np.linspace(0, 2 * np.pi)
       self.plotLine = self.ax.plot(self.phi, np.sin(self.phi))
       self.ax.set_xlabel('angle [rad]')
       self.ax.set_ylabel('sin(angle)')
@@ -32,13 +32,13 @@ class PlotterApp():
       self.window.rowconfigure(0, weight = 1)
    
    def buttonCallbackSin(self):       
-      self.plotLine[0].set_data(self.phi, np.sin(self.phi))
-      self.ax.set_ylabel('sin(angle)')
-      self.canv.draw()
+      self.plotLine[0].set_data(self.phi, np.sin(self.phi))  # Change the data used for
+      self.ax.set_ylabel('sin(angle)')                       # the plot. In this case
+      self.canv.draw()                                       # switch to a sine wave.
       
    def buttonCallbackCos(self):       
-      self.plotLine[0].set_data(self.phi, np.cos(self.phi))
-      self.ax.set_ylabel('cos(angle)')
+      self.plotLine[0].set_data(self.phi, np.cos(self.phi))  # Cosine wave with this
+      self.ax.set_ylabel('cos(angle)')                       # button's callback.
       self.canv.draw()
 
 window = tk.Tk()
