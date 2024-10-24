@@ -9,9 +9,9 @@ class ButtonTextApp:
       self.txt.grid(column = 0, row = 0, sticky='e')    # 'sticks' to the East (right)
       self.btn.grid(column = 1, row = 0, sticky='w')    # 'sticks' to the West (left)
 
-      self.window.columnconfigure(0, weight = 1)     # Set all rows and columns with weight=1
-      self.window.columnconfigure(1, weight = 1)     # They will all grow at the same rate
-      self.window.rowconfigure(0, weight = 1)        # when the window is resized.
+      self.window.columnconfigure(0, weight = 1)   # Set all rows and columns with weight=1
+      self.window.columnconfigure(1, weight = 1)   # They will all grow at the same rate
+      self.window.rowconfigure(0, weight = 1)      # when the window is resized.
 
    def buttonCallback(self):
       print("Text entered is: " + self.txt.get())
