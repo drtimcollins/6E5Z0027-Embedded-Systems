@@ -5,7 +5,6 @@ btn = Pin('GP17', Pin.IN)
 adc = ADC('GP26')                           # Create ADC input object
 pwm = PWM('GP18', freq=1000)                # create a PWM object
 
-
 def callbackFunction(timer):
    a_in = adc.read_u16()
    # To do: Complete this function to add required functionality.
