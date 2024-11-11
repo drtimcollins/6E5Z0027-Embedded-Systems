@@ -15,19 +15,13 @@ counter = [0, 1, 2, 3]                           # Four counters, one for each d
 
 def numberCounter(timer):                        # Called once per second
    for i in range(4):                            
-      if counter[i] < 9:                         # Increment or reset each element of
-         counter[i] = counter[i] + 1             # counter list.
-      else:
-         counter[i] = 0
+      counter[i] = (counter[i] + 1) % 10         # Increment or reset each digit
 
 digitCount = 0                                   # Which digit to update next.
 def updateDisplay(timer):                        # Called 100 times per second
    global digitCount
    digits[digitCount].off()                      # Turn off anode
-   if digitCount < 3:                            # Step to the next digit
-       digitCount = digitCount + 1
-   else:
-      digitCount = 0
+   digitCount = (digitCount + 1) % 4             # Step to the next digit       
    for i in range(7):                            # Set cathodes to show this digit
       segs[i].value(codes[counter[digitCount]][i])
    digits[digitCount].on()                       # Turn on anode to light the LEDs

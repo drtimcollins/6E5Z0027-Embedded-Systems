@@ -6,7 +6,7 @@ class SevenSegment:
              (1,0,0,1,1,0,0), (0,1,0,0,1,0,0), (0,1,0,0,0,0,0), (0,0,0,1,1,1,1),
              (0,0,0,0,0,0,0), (0,0,0,0,1,0,0)]
 
-   def __init__(self, segments, digits):
+   def __init__(self, *, segments, digits):
       self._segs = segments
       self._digits = digits
       for p in segments+digits:

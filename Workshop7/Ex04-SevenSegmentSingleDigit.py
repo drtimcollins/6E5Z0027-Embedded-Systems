@@ -14,9 +14,6 @@ def digitCounter(timer):
    global counter                             # global needed so we can change the value
    for i in range(7):
       segs[i].value(codes[counter][i])        # Look up LED states needed for this digit
-   if counter < 9:                            # Increment or reset the counter
-      counter = counter + 1
-   else:
-      counter = 0
+   counter = (counter + 1) % 10               # Increment or reset the counter
 
 tmr = Timer(period = 500, callback=digitCounter)
