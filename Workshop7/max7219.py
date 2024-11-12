@@ -41,5 +41,3 @@ class DotMatrix(framebuf.FrameBuffer):           # Inherit all the bitmap drawin
         for row in range(8):
             rowIndex = row * self.N						# Each row in the framebuffer is N bytes long
             self._sendBytes(bytes(sum(zip(self.N*[_DIGIT_0 + row], self.buffer[rowIndex:(rowIndex+self.N)]),())))
-
-
