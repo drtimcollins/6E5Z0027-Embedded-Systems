@@ -7,9 +7,9 @@ segs = (Pin('GP0',Pin.OUT), Pin('GP2',Pin.OUT), Pin('GP13',Pin.OUT), Pin('GP14',
 digits = (Pin('GP3', Pin.OUT), Pin('GP4', Pin.OUT),
           Pin('GP5', Pin.OUT), Pin('GP11', Pin.OUT))
 # LED patterns for digits 0-9 (active low)
-codes = [(0,0,0,0,0,0,1), (1,0,0,1,1,1,1), (0,0,1,0,0,1,0), (0,0,0,0,1,1,0),
+codes = ((0,0,0,0,0,0,1), (1,0,0,1,1,1,1), (0,0,1,0,0,1,0), (0,0,0,0,1,1,0),
          (1,0,0,1,1,0,0), (0,1,0,0,1,0,0), (0,1,0,0,0,0,0), (0,0,0,1,1,1,1),
-         (0,0,0,0,0,0,0), (0,0,0,0,1,0,0)]
+         (0,0,0,0,0,0,0), (0,0,0,0,1,0,0))
 
 counter = [0, 1, 2, 3]                           # Four counters, one for each digit
 

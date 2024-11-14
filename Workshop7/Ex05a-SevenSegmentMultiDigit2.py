@@ -1,4 +1,4 @@
-from sevensegment import SevenSegment
+from sevensegment import SevenSegment   # All the display driver code is now in this module
 from machine import Pin, Timer
 
 # Initialise display driver with segment and digit driver pins.
