@@ -2,9 +2,8 @@ from machine import Pin, I2C, Timer
 from ssd1306 import SSD1306_I2C
 import time
 
-# using default address 0x3C
-i2c = I2C(1, sda=Pin('GP26'), scl=Pin('GP27'))
-display = SSD1306_I2C(128, 64, i2c)
+i2c = I2C(1, sda=Pin('GP26'), scl=Pin('GP27'))    # Set up I2C
+display = SSD1306_I2C(128, 64, i2c)               # Create display 128x64 pixels
 
 while True:
     display.fill(0)                    # Clear the display (all black)
