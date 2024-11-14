@@ -3,8 +3,8 @@ from machine import Pin, SPI
 import time
 
 spi = SPI(0, sck=Pin(2), mosi=Pin(3), miso=Pin(4))   # Intialize the SPI
-ss = Pin(5)                                          # Create CS pin
-display = DotMatrix(spi, ss, 4, True) # Create MAX7129 DotMatrix driver for 4 displays
+cs = Pin(5)                                          # Create CS pin
+display = DotMatrix(spi, cs, 4, True) # Create MAX7129 DotMatrix driver for 4 displays
 display.setBrightness(10)             # Needed in real-life (virtual display ignores this)
 
 while True:
