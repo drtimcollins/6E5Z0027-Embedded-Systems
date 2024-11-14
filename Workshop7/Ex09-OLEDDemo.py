@@ -1,5 +1,5 @@
-from machine import Pin, I2C, Timer
-from ssd1306 import SSD1306_I2C
+from machine import Pin, I2C
+from ssd1306 import SSD1306_I2C                   # Import SSD1306 I2C display driver
 import time
 
 i2c = I2C(1, sda=Pin('GP26'), scl=Pin('GP27'))    # Set up I2C
