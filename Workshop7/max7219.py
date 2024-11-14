@@ -1,3 +1,6 @@
+# Copyright (c) 2024 Tim Collins - MIT License
+# See https://github.com/drtimcollins/6E5Z0027-Embedded-Systems/blob/main/LICENSE
+
 from micropython import const
 from machine import Pin
 import framebuf
