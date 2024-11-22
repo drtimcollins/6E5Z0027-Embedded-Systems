@@ -26,15 +26,15 @@ def sendData():
     else:
         print(f"HTTP post error: {response.status_code}")
 
-btn1 = Pin('GP17', Pin.IN)
+btn1 = Pin('GP17', Pin.IN)                      # GPIO inputs connected to buttons
 btn2 = Pin('GP16', Pin.IN)
 
 while True:
-    if btn1.value():
-        uploadData['field1'] = btn2.value()
-        sendData()
+    if btn1.value():                            # Only post when button 1 is pressed
+        uploadData['field1'] = btn2.value()     # Field1 equals button 2 state.
+        sendData()                              # Calls function defined above to post data
         print('Sleep for 20 seconds')
-        time.sleep(20)
+        time.sleep(20)                          # Pause so we don't exceed posting limit
         print('Ready')
-    else:
-        time.sleep(0.2)
+    else:                                       # If button 1 was not pressed, check again
+        time.sleep(0.2)                         # in 200 ms.
