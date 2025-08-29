@@ -2,11 +2,11 @@ import random
 import numpy as np
 import BattleShips
 
-# Very simple guesser. Just chooses random cells regardless of whether they have been tried already.
+# Very simple guesser. Chooses a random empty cell.
 class SmartBattleShips(BattleShips.BattleShips):
     def guess(self):
-        options = np.array(np.where(self.map == ' ')).T
-        return random.choice(options)
+        options = np.array(np.where(self.map == ' ')).T     # Make a list of coordinates of empty cells in the map.
+        return random.choice(options)                       # Choose one of the options at random
         
 b = SmartBattleShips()
 b.gui()
