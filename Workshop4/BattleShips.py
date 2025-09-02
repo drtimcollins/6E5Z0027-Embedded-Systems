@@ -61,7 +61,7 @@ class BattleShips:
     # Autoplay - runs a complete game and returns the number of guesses
     def autoplay(self):
         numGuesses = 0
-        for m in self.playMove():
+        for _ in self.playMove():
             numGuesses = numGuesses + 1
         return numGuesses
     # Play nGames automatically and return the average number of guesses
@@ -75,7 +75,7 @@ class BattleShips:
         return (0,0)        # Always guesses top-left cell.
 
     # Launches an interactive graphical user interface to the puzzle. Can be used to play the game manually or test an autosolver
-    def gui(self):
+    def gui(self,*,printMap = False):
         self.window = tk.Tk()
         self.canv = tk.Canvas(self.window, width=self.N*40, height=self.N*40,borderwidth=0, highlightthickness=0)
         self.btnAuto = ttk.Button(self.window, text="Auto Play", command = self.guiAutoPlay)
@@ -93,6 +93,7 @@ class BattleShips:
         self.guiCells = [[self.canv.create_rectangle(x*40,y*40,(x+1)*40-1,(y+1)*40-1,fill='black',outline='green')
                           for x in range(self.N)] for y in range(self.N)]
         self.history = []
+        self.printMap = printMap
         self.window.mainloop()
         
     def mouseClick(self, event):
@@ -102,6 +103,8 @@ class BattleShips:
                 try:
                     next(self.manualGame)
                     self.canvasUpdate(self.map)
+                    if self.printMap:
+                        print(self.map)
                     self.history.append(self.map.copy())
                     self.slider.config(to=len(self.history)-1)
                     self.slider.set(len(self.history)-1)
@@ -113,6 +116,8 @@ class BattleShips:
                     self.map[r,c] = '*'
                 elif self.map[r,c] == '*':
                     self.map[r,c] = ' '
+                if self.printMap:
+                    print(self.map)                    
                 self.canvasUpdate(self.map)
                 
     def sliderChange(self, value):
