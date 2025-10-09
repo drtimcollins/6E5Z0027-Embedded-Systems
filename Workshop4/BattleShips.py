@@ -2,9 +2,8 @@
 ##                         and new methods and/or attributes can be added as needed in the inherited class.
 ##                         YOU SHOULD NOT NEED TO EDIT THIS FILE IN ANY WAY.
 
-# Numpy and Scipy packages are required and may need to be installed before use.
+# Numpy package is required and may need to be installed before use.
 import numpy as np
-from scipy.ndimage import convolve,correlate
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -26,14 +25,15 @@ class BattleShips:
         localHits = np.full((self.N, self.N), 0)
         self.map  = np.full((self.N, self.N), ' ')
         for s in 'YXBA':                                # Place ships (starting with the biggest)
-            mask = (convolve(localMap,np.ones((3,3)), mode='constant') == 0).astype(int)            
+            mask = (self.convolve(localMap,np.ones((3,3),dtype=int)) == 0)
             validPlacements = []                        # List of all coordinates and rotations where this ship will fit
             for nRotations in range(4):
                 sRotated = np.rot90(np.array(shipShapes[s],dtype=int), nRotations)
-                xy = np.transpose(np.array(np.where(correlate(mask,sRotated, mode='constant')==np.sum(sRotated)),dtype=int))
+                xy = np.transpose(np.array(np.where(self.correlate(mask,sRotated)==np.sum(sRotated)),dtype=int))
                 validPlacements = validPlacements + [np.append(c,nRotations) for c in xy]          
             shipPlace = rng.choice(validPlacements)     # Choose one of the valid placement options at random
-            localMap = localMap + convolve(np.fromfunction(lambda i,j: (i == shipPlace[0])&(j == shipPlace[1]),(self.N,self.N)).astype(int), np.rot90(np.array(shipShapes[s],dtype=int), shipPlace[2]), mode='constant')
+            localMap = localMap + self.convolve(np.fromfunction(lambda i,j: (i == shipPlace[0])&(j == shipPlace[1]),
+                                (self.N,self.N)).astype(int), np.rot90(np.array(shipShapes[s],dtype=int), shipPlace[2]))
         localMap = np.array([' ','A','B','X','Y'])[localMap]
 
         self.newGame() 
@@ -77,6 +77,7 @@ class BattleShips:
     # Launches an interactive graphical user interface to the puzzle. Can be used to play the game manually or test an autosolver
     def gui(self,*,printMap = False):
         self.window = tk.Tk()
+        self.window.title("BattleShips")
         self.canv = tk.Canvas(self.window, width=self.N*40, height=self.N*40,borderwidth=0, highlightthickness=0)
         self.btnAuto = ttk.Button(self.window, text="Auto Play", command = self.guiAutoPlay)
         self.btnMan = ttk.Button(self.window, text="Manual Play", command = self.guiManualPlay)
@@ -139,7 +140,10 @@ class BattleShips:
         
     def guiAutoPlay(self):   
         self.mode = 'auto'
-        self.history = [m for m in self.playMove()]        
+        self.history = [m for m in self.playMove()]
+        if self.printMap:
+            for m in self.history:
+                print(m)        
         self.slider.config(to=len(self.history)-1)
         self.slider.set(0)
         self.guiCounter = 0
@@ -156,5 +160,32 @@ class BattleShips:
         for r, row in enumerate(self.guiCells):
             for c, cell in enumerate(row):
                 self.canv.itemconfig(cell, fill = colours[map[r,c]])
+
+    # Two-dimensional convolution between the image array, mp, and the kernel array, mp
+    def convolve(self, mp, ker):
+        N = np.shape(ker)
+        N2 = np.array(N)//2
+        M = np.shape(mp)
+        c = [np.pad([np.convolve(m, k)[N2[1]:(N2[1]+M[1])] for m in mp],((i,N[0]-1-i),(0,0)),
+                    'constant',constant_values=0) for i,k in enumerate(ker)]
+        if mp.dtype == bool and ker.dtype == bool:
+            return np.sum(c,0)[N2[0]:(M[0]+N2[0])] > 0
+        else:
+            return np.sum(c,0)[N2[0]:(M[0]+N2[0])]
+    
+
+    # Two-dimensional correlation between the image array, mp, and the kernel array, mp
+    def correlate(self, mp, ker0):
+        ker = np.fliplr(ker0)
+        N = np.shape(ker)
+        N2 = np.array(N)//2
+        Nodd = np.array(N) % 2
+        M = np.shape(mp)
+        c = [np.pad([np.convolve(m, k)[(N2[1]-1+Nodd[1]):(N2[1]+M[1]-1+Nodd[1])] for m in mp], ((N[0]-1-i,i),(0,0)),
+                    'constant',constant_values=0) for i,k in enumerate(ker)]
+        if mp.dtype == bool and ker.dtype == bool:
+            return np.sum(c,0)[(N2[0]-1+Nodd[0]):(M[0]+N2[0]-1+Nodd[0])] > 0
+        else:
+            return np.sum(c,0)[(N2[0]-1+Nodd[0]):(M[0]+N2[0]-1+Nodd[0])]
 
 

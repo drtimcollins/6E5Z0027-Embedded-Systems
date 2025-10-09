@@ -5,6 +5,3 @@ import BattleShips
 class SmartBattleShips(BattleShips.BattleShips):
 	def guess(self):
 		return (random.randint(0,self.N-1), random.randint(0,self.N-1))
-
-b = SmartBattleShips()
-b.gui()
