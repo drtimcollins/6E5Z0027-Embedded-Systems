@@ -1,8 +1,9 @@
 import numpy as np
-import BattleShips
+import BattleShips                                 # Import the base BattleShips class
 
-# Very simple guesser. Chooses first empty cell available.
+# SmartBattleShips2. Knows not to guess the same cell twice.
+# Chooses the first empty cell available.
 class SmartBattleShips(BattleShips.BattleShips):
     def guess(self):
-        options = np.argwhere(self.map == ' ')     # Make a list of coordinates of empty cells in the map.
+        options = np.argwhere(self.map == ' ')     # Make a list empty cells' coordinates
         return options[0]                          # Select the first of the options
