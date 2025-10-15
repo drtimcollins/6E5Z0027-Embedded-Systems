@@ -161,7 +161,7 @@ class BattleShips:
             for c, cell in enumerate(row):
                 self.canv.itemconfig(cell, fill = colours[map[r,c]])
 
-# Two-dimensional convolution between the image array, mp, and the kernel array, mp
+# Two-dimensional convolution between the image array, mp, and the kernel array, ker
 def convolve(mp, ker):
     N = np.shape(ker)
     N2 = np.array(N)//2
@@ -174,15 +174,15 @@ def convolve(mp, ker):
         return np.sum(c,0)[N2[0]:(M[0]+N2[0])]
 
 
-# Two-dimensional correlation between the image array, mp, and the kernel array, mp
-def correlate(mp, ker0):
-    ker = np.fliplr(ker0)
+# Two-dimensional correlation between the image array, mp, and the kernel array, ker
+def correlate(mp, ker):
+    ker1 = np.fliplr(ker)
     N = np.shape(ker)
     N2 = np.array(N)//2
     Nodd = np.array(N) % 2
     M = np.shape(mp)
     c = [np.pad([np.convolve(m, k)[(N2[1]-1+Nodd[1]):(N2[1]+M[1]-1+Nodd[1])] for m in mp], ((N[0]-1-i,i),(0,0)),
-                'constant',constant_values=0) for i,k in enumerate(ker)]
+                'constant',constant_values=0) for i,k in enumerate(ker1)]
     if mp.dtype == bool and ker.dtype == bool:
         return np.sum(c,0)[(N2[0]-1+Nodd[0]):(M[0]+N2[0]-1+Nodd[0])] > 0
     else:
