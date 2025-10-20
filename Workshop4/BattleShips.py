@@ -169,9 +169,9 @@ def convolve(mp, ker):
     c = [np.pad([np.convolve(m, k)[N2[1]:(N2[1]+M[1])] for m in mp],((i,N[0]-1-i),(0,0)),
                 'constant',constant_values=0) for i,k in enumerate(ker)]
     if mp.dtype == bool and ker.dtype == bool:
-        return np.sum(c,0)[N2[0]:(M[0]+N2[0])] > 0
+        return np.sum(c,0,dtype=bool)[N2[0]:(M[0]+N2[0])]
     else:
-        return np.sum(c,0)[N2[0]:(M[0]+N2[0])]
+        return np.sum(c,0,dtype=int)[N2[0]:(M[0]+N2[0])]
 
 
 # Two-dimensional correlation between the image array, mp, and the kernel array, ker
@@ -184,9 +184,9 @@ def correlate(mp, ker):
     c = [np.pad([np.convolve(m, k)[(N2[1]-1+Nodd[1]):(N2[1]+M[1]-1+Nodd[1])] for m in mp], ((N[0]-1-i,i),(0,0)),
                 'constant',constant_values=0) for i,k in enumerate(ker1)]
     if mp.dtype == bool and ker.dtype == bool:
-        return np.sum(c,0)[(N2[0]-1+Nodd[0]):(M[0]+N2[0]-1+Nodd[0])] > 0
+        return np.sum(c,0,dtype=bool)[(N2[0]-1+Nodd[0]):(M[0]+N2[0]-1+Nodd[0])]
     else:
-        return np.sum(c,0)[(N2[0]-1+Nodd[0]):(M[0]+N2[0]-1+Nodd[0])]
+        return np.sum(c,0,dtype=int)[(N2[0]-1+Nodd[0]):(M[0]+N2[0]-1+Nodd[0])]
 
 
 
