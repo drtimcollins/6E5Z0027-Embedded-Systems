@@ -4,8 +4,8 @@ import tkinter.ttk as ttk
 class ButtonTextApp:
    def __init__(self, parentWindow):
       self.window = parentWindow
-      self.txt = ttk.Entry(window)
-      self.btn = ttk.Button(window, text='Enter', command=self.buttonCallback)
+      self.txt = ttk.Entry(self.window)
+      self.btn = ttk.Button(self.window, text='Enter', command=self.buttonCallback)
       self.txt.grid(column = 0, row = 0, sticky='e')    # 'sticks' to the East (right)
       self.btn.grid(column = 1, row = 0, sticky='w')    # 'sticks' to the West (left)
 
