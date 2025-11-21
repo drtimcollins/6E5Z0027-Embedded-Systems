@@ -5,9 +5,9 @@ class ScaleApp:
    def __init__(self, parentWindow):
       self.window = parentWindow
       # Create a Scale widget with callback function
-      self.slider = ttk.Scale(window, command=self.sliderCallback)
+      self.slider = ttk.Scale(self.window, command=self.sliderCallback)
       # Create an empty label, just used to display a coloured box
-      self.txt = ttk.Label(window, background='#000000', width=10)
+      self.txt = ttk.Label(self.window, background='#000000', width=10)
       
       self.slider.grid(column = 0, row = 0)    # Place widgets using grid()
       self.txt.grid(column = 1, row = 0)
