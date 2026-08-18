@@ -14,7 +14,7 @@ class TilistPlayer(Tilist):
             indices = np.arange(4)
 
             # Iterate through every permutation of possible placements 
-            for trialIndices in permutations(range(np.shape(spaces)[0]), 4):
+            for trialIndices in permutations(range(np.shape(spaces)[0])):
                 testGrid = self.grid.copy()                  # Copy current grid so we can
                                                              # try out this permutation.
                 for i,tile in zip(trialIndices, self.hand):  # Place each tile in the hand
