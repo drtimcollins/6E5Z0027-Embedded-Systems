@@ -9,8 +9,8 @@ class TilistPlayer(Tilist):
         if self.roundNumber < 3:                   # For rounds 0-2, choose at random
             indices = np.random.choice(np.shape(spaces)[0], 4, replace=False)
         else:
-            # Initialise the best score found so far to nothing
-            bestScore = 0
+            # Initialise the best score found so far to -1; a score guaranteed to be beaten
+            bestScore = -1
             indices = np.arange(4)
 
             # Iterate through every permutation of possible placements 
