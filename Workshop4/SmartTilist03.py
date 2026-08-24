@@ -3,18 +3,15 @@ import numpy as np
 from Tilist import Tilist
 
 class TilistPlayer(Tilist):
-    def __init__(self, Ntries):
-        self.Nt = Ntries
-        self.initGameData()
     def autoPlay(self):
         spaces = np.argwhere(self.grid == '  ')    # Make list of available spaces
  
-         # Initialise the best score found so far to nothing
-        bestScore = 0
+        # Initialise the best score found so far to -1
+        bestScore = -1
         indices = np.arange(4)
 
         if self.roundNumber < 3:                   # For rounds 0-2, choose at random
-            for trial in range(self.Nt):
+            for trial in range(12):                # Try 12 random permutations
                 trialIndices = np.random.choice(np.shape(spaces)[0], 4, replace=False)
                 testGrid = self.grid.copy()                  # Copy current grid so we can
                                                              # try out this permutation.
@@ -41,8 +38,4 @@ class TilistPlayer(Tilist):
                     indices = np.array(trialIndices)         # new best and store indices.
 
         return spaces[indices]                               # Return coordinates as before
-
-for n in range(2,22,2):
-    t = TilistPlayer(n)
-    print(f'{n}, {t.playGames(500)}')
       
