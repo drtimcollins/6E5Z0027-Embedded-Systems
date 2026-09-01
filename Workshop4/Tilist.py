@@ -5,7 +5,7 @@
 # Numpy package is required and may need to be installed before use.
 import numpy as np
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 import tkinter.font as tkFont
 cols = {'R':'red4','B':'blue','G':'dark green'}
 tileBag = np.array([c+str(n) for c in 'RBG' for n in range(1,10)])
@@ -78,7 +78,7 @@ class Tilist:
         clrs = np.array([x[0] if x!='  ' else '' for x in comb])
         if np.sum(nums > 0):
             nu,nc = np.unique(nums[nums > 0], return_counts=True)
-            cu,cc = np.unique(clrs[clrs != ''], return_counts=True)
+            _,cc = np.unique(clrs[clrs != ''], return_counts=True)
             allSameColour = (cc[0] == 4)
             sameNumbers = np.max(nc)
             twoPair = np.all(nc == 2) and (len(nc) == 2)
@@ -142,7 +142,7 @@ class Tilist:
             e.moveTo(i*40, 180)
 
     def guiSubmit(self):
-        turnNumber = next(self.currentGame)
+        next(self.currentGame)
         # update gui grid and discard cells from game data......
         for i,cVec in enumerate(self.guiGridCells):
             for j, c in enumerate(cVec):
