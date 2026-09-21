@@ -5,7 +5,7 @@ response = requests.get("https://api.open-meteo.com/v1/forecast",
                                   "hourly": "temperature_2m,precipitation",
                                   "forecast_days": 1, "models": "ukmo_seamless"})
 
-if response.ok:
+if response.status_code == 200:
    forecast = response.json()                    # Form a dictionary from the response
    temp_unit = forecast['hourly_units']['temperature_2m']    # Look up units
    prec_unit = forecast['hourly_units']['precipitation']
