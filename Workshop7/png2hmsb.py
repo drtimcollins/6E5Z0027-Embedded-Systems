@@ -1,3 +1,5 @@
+# png2hmsb: Converts a png image to MONO_HSMB for use in MicroPython with FrameBuffer
+# Requires numpy and pillow
 import numpy as np
 from PIL import Image
 
@@ -13,3 +15,4 @@ imgByteGrouped = img.reshape(height, width // 8, 8)                        # Con
 imgHMSB = np.sum(imgByteGrouped * np.array([1, 2, 4, 8, 16, 32, 64, 128], dtype=np.uint8), axis=2, dtype=np.uint8)
 
 print(f"imgHMSB = bytearray({imgHMSB.tobytes()})")
+print(f"imgBuf = FrameBuffer(imgHMSB, {width}, {height}, MONO_HMSB)")
