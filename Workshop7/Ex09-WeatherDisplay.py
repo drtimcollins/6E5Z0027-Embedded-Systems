@@ -20,7 +20,7 @@ if MyWifi.connect():
         wind = forecast['current']['wind_speed_10m']
         temp_unit = forecast['current_units']['temperature_2m']    # Look up units
         wind_unit = forecast['current_units']['wind_speed_10m']
-        temp_unit = temp_unit.replace(chr(176),' ')
+        temp_unit = temp_unit.replace(chr(176),' ')     # Degree symbol is incompatible...
 
         i2c = I2C(1, sda=Pin('GP26'), scl=Pin('GP27'))  # Set up I2C interface
         display = SSD1306_I2C(64, 32, i2c)              # Create driver object

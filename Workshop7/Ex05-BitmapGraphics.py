@@ -9,11 +9,11 @@ imgHMSB = bytearray(b'\x00\x1c\x00\x00"\x00\x00A\x00\x80\x80\x00\x80\x80\x00\x80
     b'\x00\x80\xe3\x00x\x14\x0f\x10\x08\x04\x10\x08\x04 \x08\x02 \x08\x028\x1c\x0e'
     b'\xc4\xe3\x11\x02A \x82\x80 \x82\x80 \x82\x80 Dc\x118\x14\x0e\x00\x08\x00\x00'
     b'\x08\x00\x00\x00\x00')
-imgBuf = FrameBuffer(imgHMSB, 24, 23, MONO_HMSB)
-
-display.blit(imgBuf,4,4)
-display.text('Man', 32,2)
-display.text('Met', 32,12)
-display.text('Eng', 32,22)
+imgBuf = FrameBuffer(imgHMSB, 24, 23, MONO_HMSB)     # Create a 24x23 pixel FrameBuffer
+                                                     # using the image data.
+display.blit(imgBuf, 4, 4)        # Copy image to the display at coordinates (4, 4)
+display.text('Man', 32, 2)        # Add text...
+display.text('Met', 32, 12)
+display.text('Eng', 32, 22)
 
 display.show()                    # Call the show() method last to update display

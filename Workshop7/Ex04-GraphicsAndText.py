@@ -21,5 +21,5 @@ def updateDisplay(timer):
     
     display.show()                         # Call the show() method last to update display
 
-# Set up a timer to trigger every second
+# Set up a timer to call updateDisplay() once every second
 tmr = Timer(freq = 1, callback = updateDisplay)
