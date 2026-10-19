@@ -199,7 +199,7 @@ class Tilist:
             x = (int(x) + 20) // 40
             y = (int(y) + 20) // 40
 
-            if x < 0 or y < 0 or x > 3 or y > 3 or self.grid[y,x] != '  ': # or len(self.playLocations) == 4:
+            if x < 0 or y < 0 or x > 3 or y > 3 or self.grid[y,x] != '  ':
                 self._dragTile.moveTo(self._dragIndex*40, 180)
                 self.playLocations[self._dragIndex,:] = np.array([-1,-1])
             else:
@@ -239,7 +239,6 @@ class GuiTile:
         self.isHandTile = isHandTile
         self.moveTo(x*40, y*40)
     def setTile(self, id):
-        #if isinstance(id,str):
         if id=='--':
             self.blank()
         else:
@@ -255,7 +254,6 @@ class GuiTile:
     def moveTo(self, x, y):
         self.canv.coords(self.number, x+20, y+20)
         self.moveDecorTo(x+20, y+20)
-        #self.pos = (x, y)
     def move(self, dx, dy):
         self.canv.move(self.number, dx, dy)        
         x,y = self.canv.coords(self.number)
