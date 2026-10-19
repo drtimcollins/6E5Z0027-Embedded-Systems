@@ -16,9 +16,6 @@ icons = {'R': np.array([[0,0],[0,32],[32,32],[32,0]]) - 16,
          '-':np.array([[-16,-16],[16,-16]])}
 iconCol = {'R':'red2','G':'green4','B':'RoyalBlue3','-':'azure4'}
 class Tilist:
-    def __init__(self):
-        self.initGameData()
-
     def autoPlay(self):   # Base version always plays tiles in consecutive rows.
         return [(self.roundNumber, i) for i in range(4)]        
  
@@ -30,43 +27,44 @@ class Tilist:
     
     def playGames(self, N=10):
         return float(np.mean(np.array([self.playGame() for _ in range(N)])))
- 
-    def initGameData(self):
-        self.grid = np.full((4, 4), '  ')
-        self.hand = np.full(4, '  ')
-        self.gameOver = False
-        self.roundNumber = 0
-        
+         
     # Generator function that initialises and plays a complete game (one guess per iteration)
     def playTurn(self):
-        self.initGameData()
-        # Randomly selects 20 tiles from the bag
+        # Initialise game data
+        grid = np.full((4, 4), '  ')
+        hand = np.full(4, '  ')
+        self.gameOver = False
+        # Randomly select 16 tiles from the bag
         deal = np.random.choice(tileBag, 16, replace=False)
        
+        self.scores = 0
         currentScore = 0
         for i in range(5):
             self.roundNumber = i
             if i > 0:
+                if np.shape(self.playLocations) != (4,2):
+                    raise ValueError("autoPlay() should return a 4-by-2 array.")
                 # Copy tiles into grid and discard
-                for i,p in enumerate(self.playLocations):
-                    self.grid[tuple(p)] = self.hand[i]
+                for j,p in enumerate(self.playLocations):
+                    if grid[tuple(p)] == '  ':
+                        grid[tuple(p)] = hand[j]
+                    else:
+                        raise ValueError('You are trying to play a tile into an occupied space.')
 
-                currentScore = self.calculateScores()
-            
-            self.hand = deal[:4]
+                self.scores = [self.getScore(j, grid) for j in range(8)]
+                currentScore = sum([s['score'] for s in self.scores])
+
+            hand = deal[:4]
             deal = deal[4:]                
-            
+            self.hand = hand.copy()
+            self.grid = grid.copy()
             if i == 4:
-                self.gameOver = True            
+                self.gameOver = True        
 
             yield currentScore
     
-    def calculateScores(self, grid=None):
-        if grid is None:
-            scores = [self.getScore(i, self.grid) for i in range(8)]
-            self.scores = scores
-        else:
-            scores = [self.getScore(i, grid) for i in range(8)]            
+    def calculateScores(self, grid):
+        scores = [self.getScore(i, grid) for i in range(8)]            
         return sum([s['score'] for s in scores])
 
     def getScore(self, index, grid):
@@ -169,9 +167,10 @@ class Tilist:
         scoreStr = scoreStr + '-'*32 + '\n' +' '*12+ f'{"Total:":<16}: {tot}'
         self.label.config(text=scoreStr)
         
-    def guiAuto(self): 
-        self.playLocations = self.autoPlay()
-        self.guiSubmit()
+    def guiAuto(self):
+        if not self.gameOver:
+            self.playLocations = self.autoPlay()
+            self.guiSubmit()
     
     def guiNewGame(self):
         self.currentGame = self.playTurn()
