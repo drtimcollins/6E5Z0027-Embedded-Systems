@@ -4,6 +4,12 @@ import MyKeys
 wlan = network.WLAN(network.STA_IF)
 
 def connect(timeout_s=10):
+    if not hasattr(MyKeys, 'SSID'):
+        print("Error: SSID was not defined in the MyKeys module")
+        return False
+    if not hasattr(MyKeys, 'KEY'):
+        print("Error: KEY was not defined in the MyKeys module")
+        return False        
     if not wlan.active():     # Activate WLAN
         wlan.active(True)
     if wlan.isconnected():    # If already open, shut down before attempting connection
@@ -23,7 +29,7 @@ def connect(timeout_s=10):
     # If successful, print confirmation and return True
     if wlan.isconnected():
         print(f"\nWifi connected in {time.time() - start_time:.2f}s.")
-        print(f"IP: {wlan.ifconfig()[0]}")
+        print("-"*40)
         return True
 
     # Fail so try to guess the likely problem(s) before returning False
@@ -39,7 +45,8 @@ def connect(timeout_s=10):
             # The network is not visible - could be several reasons...
             print(f"\nSSID '{MyKeys.SSID}' was NOT found in the scan.")
             print("The SSID may be wrong, the router may be off, or the device is out of range.")
-    
+            if "'" in MyKeys.SSID and MyKeys.SSID.replace("'","\u2019") in scanned_ssids:
+                print("NB.",MyKeys.SSID.replace("'","\u2019"),"was found. You may need to replace the apostrophe with \\u2019 in MyKeys.")
     except Exception as e:
         print(f"An error occurred during scanning: {e}")
 
