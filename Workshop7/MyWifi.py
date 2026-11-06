@@ -35,6 +35,9 @@ def connect(timeout_s=10):
     # Fail so try to guess the likely problem(s) before returning False
     print("\n\nConnection failed scanning for cause...")
     try:
+        wlan.active(False)
+        time.sleep(0.5)
+        wlan.active(True)
         # Look for all SSIDs in range and check that the specified one is there
         scanned_ssids = [s[0].decode('utf8') for s in wlan.scan()]        
         if MyKeys.SSID in scanned_ssids:
