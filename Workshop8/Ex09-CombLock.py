@@ -1,5 +1,7 @@
 from keypad import Keypad
 from machine import Pin
+import time
+time.sleep(0.1)
 
 secretCode = '31415927'
 isLocked = False

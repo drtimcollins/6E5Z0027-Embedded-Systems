@@ -1,4 +1,6 @@
 from machine import ADC, Timer
+import time
+time.sleep(0.1)
 
 adc = ADC('GP26')                            # Setup ADC0
 

@@ -1,11 +1,13 @@
 from machine import Pin, Timer
+import time
+time.sleep(0.1)
 
 # Rows are connected as inputs with an internal pull-up resistor.
-rowPins = (Pin(26, Pin.IN, Pin.PULL_UP), Pin(22, Pin.IN, Pin.PULL_UP), 
-            Pin(21, Pin.IN, Pin.PULL_UP), Pin(20, Pin.IN, Pin.PULL_UP))
+rowPins = (Pin(15, Pin.IN, Pin.PULL_UP), Pin(14, Pin.IN, Pin.PULL_UP), 
+            Pin(13, Pin.IN, Pin.PULL_UP), Pin(12, Pin.IN, Pin.PULL_UP))
 # Columns are Open Drain outputs: grounded when low, open circuit when high.
-colPins = (Pin(19, Pin.OPEN_DRAIN), Pin(18, Pin.OPEN_DRAIN),
-            Pin(17, Pin.OPEN_DRAIN), Pin(16, Pin.OPEN_DRAIN))
+colPins = (Pin(11, Pin.OPEN_DRAIN), Pin(10, Pin.OPEN_DRAIN),
+            Pin(9, Pin.OPEN_DRAIN), Pin(8, Pin.OPEN_DRAIN))
 # Lookup table for the meaning of each key.
 keyValues = ("123A","456B","789C","*0#D")
 # Storage for the state of each key. Used to detect changes in button presses.

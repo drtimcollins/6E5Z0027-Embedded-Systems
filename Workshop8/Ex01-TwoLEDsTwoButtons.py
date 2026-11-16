@@ -1,4 +1,6 @@
 from machine import Pin, Timer, PWM
+import time
+time.sleep(0.1)
 
 led1 = Pin('GP19', Pin.OUT)                # Create input and output Pin objects
 led2 = Pin('GP18', Pin.OUT)
