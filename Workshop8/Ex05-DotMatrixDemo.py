@@ -1,5 +1,5 @@
 from max7219 import DotMatrix         # Import the DotMatrix driver
-from machine import Pin, SPI
+from machine import Pin, SPI, Timer
 import time
 time.sleep(0.1)
 
@@ -9,7 +9,8 @@ display = DotMatrix(spi, cs, 4, True) # Create MAX7129 DotMatrix driver for 4 di
 display.setBrightness(10)             # Needed in real-life (virtual display ignores this)
 
 x = 0
-while True:
+def scrollText(timer):
+    global x                             # Global is needed so new x position can be stored
     display.fill(0)                      # Clear the display (all black)
     display.text('Hello World', 32-x, 0) # Show text at current scroll position
     display.show()                       # Call the show() method last to update display
@@ -17,5 +18,5 @@ while True:
     if x > 120:                          # ...resetting if message has completed.
         x = 0
 
-    time.sleep(0.05)
+tmr = Timer(freq = 20, callback = scrollText)   # Set up timer to animate text
 

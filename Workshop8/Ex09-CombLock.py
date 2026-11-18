@@ -27,6 +27,6 @@ def keyPressed(keyValue):
       print("State = LOCKED")
 
 # Setup keypad object with the correct pins and with keyPressed() as the callback function
-kp = Keypad(rows = (Pin(26), Pin(22), Pin(21), Pin(20)),
-            columns = (Pin(19), Pin(18), Pin(17), Pin(16)),
+kp = Keypad(rows = (Pin(15), Pin(14), Pin(13), Pin(12)),
+            columns = (Pin(11), Pin(10), Pin(9), Pin(8)),
             callback = keyPressed)
