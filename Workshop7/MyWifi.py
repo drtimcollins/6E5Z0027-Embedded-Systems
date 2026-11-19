@@ -18,7 +18,10 @@ def connect(timeout_s=10):
 
     # Connection attempt: can take several seconds. Fails if time exceeds timeout_s
     print(f"Attempting Wifi connection to {MyKeys.SSID}...")
-    wlan.connect(MyKeys.SSID, MyKeys.KEY)
+    if len(MyKeys.KEY) > 0:
+        wlan.connect(MyKeys.SSID, MyKeys.KEY)
+    else:
+        wlan.connect(MyKeys.SSID)   # Assume this is an open network (e.g. Wokwi-GUEST)
     start_time = time.time()
     while wlan.status() in (network.STAT_IDLE, network.STAT_CONNECTING, 2):
         if (time.time() - start_time) > timeout_s:
