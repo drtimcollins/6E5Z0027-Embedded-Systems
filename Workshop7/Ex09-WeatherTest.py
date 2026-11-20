@@ -15,4 +15,3 @@ if MyWifi.connect():
         forecast = response.json()                    # Form a dictionary from the response
         for k in forecast:
             print(f'{k}: {forecast[k]}')
-    response.close()
