@@ -15,7 +15,8 @@ if MyWifi.connect():
 
     if response.status_code == 200:
         forecast = response.json()                    # Form a dictionary from the response
-
+        response.close()
+        
         temp = forecast['current']['temperature_2m']               # Look up values
         wind = forecast['current']['wind_speed_10m']
         temp_unit = forecast['current_units']['temperature_2m']    # Look up units

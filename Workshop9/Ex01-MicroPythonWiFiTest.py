@@ -8,4 +8,5 @@ if MyWifi.connect():
     # Returns a JSON object with the current date and time
     result = urequests.get('https://aisenseapi.com/services/v1/datetime')
     timeData = result.json()
+    result.close()
     print(timeData['datetime'])

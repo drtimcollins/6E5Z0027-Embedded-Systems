@@ -23,6 +23,6 @@ response = requests.post('https://api.thingspeak.com/update.json',
                            headers={'Content-Type': 'application/json'},
                            data=json.dumps(uploadData))
 if response.status_code == 200:        # HTTP status code 200 = successful request
-    print("Post operation succesful")
+    print("Post operation successful")
 else:
     print(f"HTTP post error: {response.status_code}")
