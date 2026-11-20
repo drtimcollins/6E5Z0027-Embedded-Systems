@@ -6,3 +6,4 @@ if MyWifi.connect():
     result = urequests.get('https://aisenseapi.com/services/v1/datetime')
     timeData = result.json()
     print(timeData['datetime'])
+    result.close()
