@@ -29,5 +29,5 @@ if MyWifi.connect():
         display.text(f'{temp}{temp_unit}', 0, 18)
 
         display.show()                    # Call the show() method last to update display
-
+    response.close()
 
