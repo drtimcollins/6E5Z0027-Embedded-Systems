@@ -26,7 +26,7 @@ class HeaterApp:
         self.targetTemp.grid(column = 1, row = 2, sticky='w')
         self.isEnabled.grid(column = 0, row = 3)
         
-        self.window.after(2000, self.timerCallback)         # Called in 2000ms time
+        self.window.after(5000, self.timerCallback)         # Called in 5000ms time
     def enableCallback(self):
         self.sh.isHeatingEnabled = ('selected' in self.isEnabled.state())
         print("Checked:",self.sh.isHeatingEnabled)
@@ -38,7 +38,7 @@ class HeaterApp:
         self.sh.updateFromIoT()
         self.boilerOn.config(text=str(self.sh.isBoilerOn))  # ...and update GUI
         self.actualTemp.config(text=str(self.sh.actualTemperature))
-        self.window.after(2000, self.timerCallback)         # Call again in 2000ms
+        self.window.after(5000, self.timerCallback)         # Call again in 5000ms
 
 window = tk.Tk()
 app = HeaterApp(window)

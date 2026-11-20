@@ -28,9 +28,9 @@ class SmartHeaterPico:
         self.timeSinceLastPost = 1000               # Counter to limit posting rate
         self.lastID = 0                             # Keeps track of fields already seen
         self.uploadData = {'api_key': mykeys.WRITE_KEY}
-        self.tmr = Timer(period=2000, callback=self.updateHeating)
+        self.tmr = Timer(period=5000, callback=self.updateHeating)
 
-    # Called every two seconds to update the system, get data, and post data when needed
+    # Called every five seconds to update the system, get data, and post data when needed
     def updateHeating(self, timer):
         newTemperature = int(self.tempAdc.read_u16() / 397)			# Read temperature ADC
         print(f"Current Temperature = {newTemperature}\u00B0C")
