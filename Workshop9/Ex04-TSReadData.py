@@ -30,4 +30,4 @@ if MyWifi.connect():
             response.close()             
         except:                             # Occasionally, get() can fail, when it does
             print("Request failed")         # just retry next time.
-        time.sleep(5)                       # Wait 5 s before checking again
+        time.sleep(10)                       # Wait 10 s before checking again
