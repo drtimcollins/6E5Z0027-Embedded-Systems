@@ -25,7 +25,7 @@ if MyWifi.connect():
 
         waitTime = 30                          # Wait 30s before next transmissions
         while waitTime > 0:
-            print('Sleep for 30 seconds ', end='\r')
+            print(f'Sleep for {waitTime} seconds ', end='\r')
             time.sleep(1)
             waitTime -= 1
         print('\nReady')
