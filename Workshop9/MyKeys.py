@@ -1,2 +1,2 @@
-SSID = 'Wokwi-GUEST'
+SSID = ''
 KEY = ''
